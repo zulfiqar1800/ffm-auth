@@ -1,0 +1,579 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "User Authentication API",
+      "version": "1.0.0",
+      "title": "User Authentication API for FFM",
+      "contact": {
+        "email": "ffm@techserve4u.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "servers": [
+      {
+        "url": "/"
+      }
+    ],
+    "tags": [
+      {
+        "name": "User Registration",
+        "description": "Registering a new User"
+      },
+      {
+        "name": "Dashboard User Registration",
+        "description": "Registering a new User for Dashboard"
+      },
+      {
+        "name": "User Login",
+        "description": "Login an existing User"
+      },
+      {
+        "name": "Dashboard User Login",
+        "description": "Login an existing Dashboard User"
+      },
+      {
+        "name": "User Authentication Status",
+        "description": "Showing the Login status an User"
+      },
+      {
+        "name": "Dashboard User Authentication Status",
+        "description": "Showing the Login status a Dashboard User"
+      },
+      {
+        "name": "Refresh Token",
+        "description": "Get a new JWT token in exchange of the old one"
+      },
+      {
+        "name": "Logout User",
+        "description": "Logging out a logged in User"
+      },
+      {
+        "name": "Logout Dashboard User",
+        "description": "Logging out a logged in Dashboard User"
+      },
+      {
+        "name": "Company Register",
+        "description": "Registering a company through Admin Panel"
+      },
+      {
+        "name": "Company List",
+        "description": "Get registered company list"
+      },
+      {
+        "name": "Company Users",
+        "description": "Get users who work for a registered company"
+      },
+      {
+        "name": "Company Contacts",
+        "description": "Get contacts for a registered company"
+      },
+
+    ],
+    "paths": {
+      "/api/v1/field-force/auth/register-user": {        
+        "post": {    
+          "tags": [
+            "User Registration"
+          ],
+          "summary": "Returns a Token and message if user successfully registers",
+          "requestBody": {
+            "description": "User Registration Request Post Object",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userregpostbody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/register-dashboard-user": {        
+        "post": {    
+          "tags": [
+            "Dashboard User Registration"
+          ],
+          "summary": "Returns a Token and message if user successfully registers",
+          "requestBody": {
+            "description": "Dashboard User Registration Request Post Object",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/dashuserregpostbody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/user-login": {        
+        "post": {
+          "tags": [
+            "User Login"
+          ],
+          "summary": "Returns a Token and message if user successfully logs in",
+          "requestBody": {
+            "description": "User Login Request Post Object",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userloginpostbody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/dashboard-user-login": {        
+        "post": {
+          "tags": [
+            "Dashboard User Login"
+          ],
+          "summary": "Returns a Token and message if user successfully logs in",
+          "requestBody": {
+            "description": "Dashboard User Login Request Post Object",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/dashuserloginpostbody"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/authenticate-user": {        
+        "get": {
+          "tags": [
+            "User Authentication Status"
+          ],
+          "summary": "Returns a JSON if user is logged in and has a valid token",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/authenticate-dashboard-user": {        
+        "get": {
+          "tags": [
+            "Dashboard User Authentication Status"
+          ],
+          "summary": "Returns a JSON if user is logged in and has a valid token",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/refresh-token": {        
+        "get": {
+          "tags": [
+            "Refresh Token"
+          ],
+          "summary": "Returns a valid new Token if user has avalid token",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/logout-user": {        
+        "get": {
+          "tags": [
+            "Logout User"
+          ],
+          "summary": "Blacklists a Token and message if user successfully logs out",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/logout-dashboard-user": {        
+        "get": {
+          "tags": [
+            "Logout Dashboard User"
+          ],
+          "summary": "Blacklists a Token and message if user successfully logs out",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/register-company": {        
+        "post": {
+          "tags": [
+            "Company Register"
+          ],
+          "summary": "Returns a JSON if company is successfully created",
+          "requestBody": {
+            "description": "Company Create Request Post Object",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/companycreate"
+                }
+              }
+            }
+          },
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/get-company-list": {        
+        "get": {
+          "tags": [
+            "Company List"
+          ],
+          "summary": "Returns a list of registered companies",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/get-company-users/{company_id}": {        
+        "get": {
+          "tags": [
+            "Company Users"
+          ],
+          "summary": "Returns a list of users of a company",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+            "name": "company_id",
+            "in": "path",
+            "description": "ID of a company",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      },
+      "/api/v1/field-force/auth/get-company-contacts": {        
+        "get": {
+          "tags": [
+            "Company Contacts"
+          ],
+          "summary": "Returns a list of contact users of a company",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/id"
+              }
+            },
+            "400": {
+              "description": "Failed. Bad post data."
+            }
+          }
+        }
+      }
+      
+    },
+    "components": {
+      "schemas": {
+        "id": {
+          "properties": {
+            "uuid": {
+              "type": "string"
+            }
+          }
+        },
+        "userregpostbody": {
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "type": "string",
+              "format": "string"
+            },
+            "last_name": {
+              "type": "string",
+              "format": "string"
+            },
+            "nid": {
+                "type": "string",
+                "format": "string"
+              },
+              "designation": {
+                "type": "string",
+                "format": "string"
+              },
+              "department": {
+                "type": "string",
+                "format": "string"
+              },
+              "company_id": {
+                "type": "string",
+                "format": "string"
+              },
+              "iso_code": {
+                "type": "string",
+                "format": "string"
+              },
+              "phone_number": {
+                "type": "string",
+                "format": "string"
+              }
+          }
+        },
+        "dashuserregpostbody": {
+          "type": "object",
+          "properties": {
+            "firstname": {
+              "type": "string",
+              "format": "string"
+            },
+            "lastname": {
+              "type": "string",
+              "format": "string"
+            },
+            "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "password": {
+                "type": "string",
+                "format": "string"
+              },
+              "username": {
+                "type": "string",
+                "format": "string"
+              },
+              "company_id": {
+                "type": "string",
+                "format": "string"
+              },
+              "member_type": {
+                "type": "integer",
+                "format": "number"
+              }
+          }
+        },
+        "userloginpostbody": {
+            "type": "object",
+            "properties": {
+              "phone_number": {
+                "type": "string",
+                "format": "string"
+              },
+              "phone_number_int": {
+                "type": "string",
+                "format": "string"
+              },
+              "iso_code": {
+                "type": "string",
+                "format": "string"
+              },
+              "secret_text": {
+                "type": "string",
+                "format": "string"
+              },
+              "firebase_id": {
+                "type": "string",
+                "format": "string"
+              }
+            }
+          },
+        "dashuserloginpostbody": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "password": {
+                "type": "string",
+                "format": "password"
+              }
+            }
+          },
+        "userauthenticate": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "format": "email"
+              },
+              "password": {
+                "type": "string",
+                "format": "password"
+              }
+            }
+          },
+          "companycreate": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "format": "string"
+              },
+              "address": {
+                "type": "string",
+                "format": "string"
+              },
+              "tin": {
+                "type": "string",
+                "format": "string"
+              }
+            }
+          }
+        
+      }
+    }
+  }
