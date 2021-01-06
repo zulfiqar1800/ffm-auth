@@ -69,7 +69,7 @@
       {
         "name": "Company Contacts",
         "description": "Get contacts for a registered company"
-      },
+      }
 
     ],
     "paths": {

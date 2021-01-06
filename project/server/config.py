@@ -2,7 +2,7 @@
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-postgres_local_base = 'postgresql://postgres:1Bismilla@localhost:5432/'
+postgres_local_base = 'postgresql://postgres:123TS4UTransformation@postgres:5432/'
 database_name = 'field_force_db'
 SECRET_TEXT = os.getenv('SECRET_TEXT', 'the_super_secret_text')
 
