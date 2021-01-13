@@ -30,6 +30,18 @@ services:
       - "pgadmin"
       - "auth"
 
+  usermanagement:
+    container_name: user_management
+    image: shahedmehbub/ffm-usermanagement-transformation:0.0.1
+    ports:
+      - "5004:3000"
+    networks:
+      - postgres
+    depends_on:
+      - "postgres"
+      - "pgadmin"
+      - "auth"
+
   postgres:
     container_name: postgres_container
     image: postgres
