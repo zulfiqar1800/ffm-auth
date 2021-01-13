@@ -1,0 +1,296 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Task Service API for FFM
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8000
+paths:
+  /api/v1/field-force/auth/register-user:
+    post:
+      summary: Company User Registration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                  format: string
+                iso_code:
+                  type: string
+                  format: string
+                company_id:
+                  type: integer
+                  format: int64
+                first_name:
+                  type: string
+                  format: string
+                last_name:
+                  type: string
+                  format: string
+                nid:
+                  type: string
+                  format: string
+                designation:
+                  type: string
+                  format: string
+                department:
+                  type: string
+                  format: string
+      responses: 
+        '201':
+          description: User Successfully Registered
+        '400':
+          description: User registration failed
+        '404':
+          description: Company not found
+
+  /api/v1/field-force/auth/register-dashboard-user:
+    post:
+      summary: Dashboard User Registration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: string
+                company_id:
+                  type: integer
+                  format: int64
+                firstname:
+                  type: string
+                  format: string
+                lastname:
+                  type: string
+                  format: string
+                username:
+                  type: string
+                  format: string
+                member_type:
+                  type: integer
+                  format: int64
+      responses: 
+        '201':
+          description: User Successfully Registered
+        '400':
+          description: User registration failed
+        '404':
+          description: Company not found
+
+  /api/v1/field-force/auth/register-company:
+    post:
+      summary: Company Registration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  format: string
+                address:
+                  type: string
+                  format: string
+                tin:
+                  type: string
+                  format: string
+      responses: 
+        '201':
+          description: User Successfully Registered
+        '400':
+          description: User registration failed
+        '404':
+          description: Company not found
+
+  /api/v1/field-force/auth/user-login:
+    post:
+      summary: Company User Login.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firebase_id:
+                  type: string
+                  format: string
+                phone_number:
+                  type: string
+                  format: string
+                phone_number_int:
+                  type: string
+                  format: string
+                iso_code:
+                  type: string
+                  format: string
+                secret_text:
+                  type: string
+                  format: string
+      responses: 
+        '200':
+          description: User Successfully Logged In
+        '400':
+          description: Wrong Phone or Int Code
+        '404':
+          description: User not found
+
+  /api/v1/field-force/auth/dashboard-user-login:
+    post:
+      summary: Dashboard User Login.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: string
+      responses: 
+        '200':
+          description: Dashboard User Successfully Logged In
+        '400':
+          description: Wrong Email or Password
+        '404':
+          description: User not found
+
+  /api/v1/field-force/auth/authenticate-user:
+    get:
+      summary: Authenticate Company User by their JWT.
+      responses: 
+        '200':
+          description: Success
+        '401':
+          description: Failed to Parse Auth Token
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/authenticate-dashboard-user:
+    get:
+      summary: Authenticate Dashboard User by their JWT.
+      responses: 
+        '200':
+          description: Success
+        '401':
+          description: Failed to Parse Auth Token
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/refresh-token:
+    get:
+      summary: Get a new JWT by exchanging older one.
+      responses: 
+        '200':
+          description: Successfully refreshed token
+        '401':
+          description: Failed to Parse Auth Token
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/logout-user:
+    get:
+      summary: Log out company user.
+      responses: 
+        '200':
+          description: Successfully logged out
+        '401':
+          description: Failed to Parse Auth Token
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/logout-dashboard-user:
+    get:
+      summary: Log out dashboard user.
+      responses: 
+        '200':
+          description: Successfully logged out
+        '401':
+          description: Failed to Parse Auth Token
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/get-company-list:
+    get:
+      summary: Gets the list of the companies currently registered.
+      responses: 
+        '200':
+          description: Success
+        '400':
+          description: Failed to Parse Auth Token
+        '401':
+          description: You do not have sufficient permission
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/get-company-users/{company_id}:
+    get:
+      summary: Gets the list of the company users currently registered.
+      parameters:
+        - name: company_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses: 
+        '200':
+          description: Success
+        '400':
+          description: Failed to Parse Auth Token
+        '401':
+          description: You do not have sufficient permission
+        '403':
+          description: Provide a valid Auth Token
+
+  /api/v1/field-force/auth/get-company-contacts:
+    get:
+      summary: Gets the list of the contacts for a company.
+      responses: 
+        '200':
+          description: Success
+        '400':
+          description: Failed to Parse Auth Token
+        '401':
+          description: You do not have sufficient permission
+        '403':
+          description: Provide a valid Auth Token
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+security:
+  - bearerAuth: [] 
