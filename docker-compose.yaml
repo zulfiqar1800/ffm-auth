@@ -32,7 +32,7 @@ services:
 
   usermanagement:
     container_name: user_management
-    image: shahedmehbub/ffm-usermanagement-transformation:0.0.1
+    image: saifdev1642/backend 
     ports:
       - "5004:3000"
     networks:
@@ -43,6 +43,41 @@ services:
     command: sh -c "/wait && npm run start:dev"
     environment:
       - WAIT_HOSTS=auth:8000
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=120
+      - WAIT_HOST_CONNECT_TIMEOUT=30
+
+
+  delivery:
+    container_name: delivery
+    image: saifdev1642/delivery 
+    ports:
+      - "5005:3000"
+    networks:
+      - postgres
+    depends_on:
+      - "postgres"
+      - "pgadmin"
+    command: sh -c "/wait && npm run start:dev"
+    environment:
+      - WAIT_HOSTS=usermanagement:3000
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
+
+  attendance:
+    container_name: attendance
+    image: saifdev1642/attendance 
+    ports:
+      - "5006:3000"
+    networks:
+      - postgres
+    depends_on:
+      - "postgres"
+      - "pgadmin"
+    command: sh -c "/wait && npm run start:dev"
+    environment:
+      - WAIT_HOSTS=usermanagement:3000
       - WAIT_HOSTS_TIMEOUT=300
       - WAIT_SLEEP_INTERVAL=30
       - WAIT_HOST_CONNECT_TIMEOUT=30
