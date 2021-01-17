@@ -106,6 +106,90 @@ class Register(MethodView):
             return make_response(jsonify(responseObject)), 400
 
 
+class AdminRegister(MethodView):
+    def post(self):
+        post_data = request.get_json()
+        response_msg = []
+        if post_data.get('email') == '':
+            response_msg.append('email must be non-empty')
+        if post_data.get('password') == '':
+            response_msg.append('password must be non-empty')
+        if post_data.get('username') == '':
+            response_msg.append('username must be non-empty')
+        if post_data.get('firstname') == '':
+            response_msg.append('firstname must be non-empty')
+        if post_data.get('lastname') == '':
+            response_msg.append('lastname must be non-empty')
+
+        if len(response_msg) > 0:
+            responseObject = {
+                'status': 'failed',
+                'message': response_msg
+            }
+            return make_response(jsonify(responseObject)), 403
+        if not validators.email(post_data.get('email')):
+            responseObject = {
+                    'status': 'fail',
+                    'message': 'Provide a valid e-mail.'
+                }
+            return make_response(jsonify(responseObject)), 403
+
+        user = DashboardUser.query.filter_by(email=post_data.get('email')).first()
+        is_username = DashboardUser.query.filter_by(username=post_data.get('username')).first()
+        is_company = Companies.query.filter_by(id=1).first()
+        if not is_company:
+            company = Companies(
+                    name='admin',
+                    address='ts4u',
+                    tin='1111111111111'
+                )
+            db.session.add(company)
+            db.session.commit()
+        if not user and not is_username:
+            try:
+                user = DashboardUser(
+                    email=post_data.get('email'),
+                    password=post_data.get('password'),
+                    username=post_data.get('username'),
+                    first_name=post_data.get('firstname'),
+                    last_name=post_data.get('lastname'),
+                    company_id=1,
+                    member_type=1
+                )
+                try:
+                    db.session.add(user)
+                    db.session.commit()
+                    print(user.id)
+                    panel_user = CompanyPanel(
+                        panel_user_id=user.id,
+                        company_id=1
+                    )
+                    db.session.add(panel_user)
+                    db.session.commit()
+                except Exception as e:
+                    print(e)
+                    print("error creating user. Please try again.")
+
+                responseObject = {
+                    'status': 'success',
+                    'message': 'Successfully registered admin user ' + str(post_data.get('username')) + '.'
+                }
+                return make_response(jsonify(responseObject)), 201
+            except Exception as e:
+                print(e)
+                responseObject = {
+                    'status': 'fail',
+                    'message': 'Some error occurred. Email/Username already exists. Please try again.'
+                }
+                return make_response(jsonify(responseObject)), 400
+        else:
+            responseObject = {
+                'status': 'fail',
+                'message': 'User already exists. Please Log in.',
+            }
+            return make_response(jsonify(responseObject)), 400
+
+
 class DashboardUserRegister(MethodView):
     def post(self):
         post_data = request.get_json()
@@ -122,8 +206,6 @@ class DashboardUserRegister(MethodView):
             response_msg.append('lastname must be non-empty')
         if post_data.get('company_id') == '':
             response_msg.append('company id must be non-empty')
-        if post_data.get('member_type') == '':
-            response_msg.append('member_type must be non-empty')
 
         if len(response_msg) > 0:
             responseObject = {
@@ -156,15 +238,15 @@ class DashboardUserRegister(MethodView):
                     first_name=post_data.get('firstname'),
                     last_name=post_data.get('lastname'),
                     company_id=post_data.get('company_id'),
-                    member_type=post_data.get('member_type')
+                    member_type=2
                 )
                 try:
                     db.session.add(user)
                     db.session.commit()
                     print(user.id)
                     panel_user = CompanyPanel(
-                        panel_user_id= user.id,
-                        company_id= post_data.get('company_id')
+                        panel_user_id=user.id,
+                        company_id=post_data.get('company_id')
                     )
                     db.session.add(panel_user)
                     db.session.commit()
@@ -776,6 +858,7 @@ health_view = Health.as_view('health_api')
 registration_view = Register.as_view('register_api')
 company_registration_view = CompanyRegister.as_view('company_register_api')
 dashboard_user_registration_view = DashboardUserRegister.as_view('dashboard_user_register_api')
+admin_user_registration_view = AdminRegister.as_view('admin_register_api')
 login_view = UserLogin.as_view('login_api')
 panel_user_login_view = DashboardUserLogin.as_view('panel_user_login_api')
 logout_view = Logout.as_view('logout_api')
@@ -808,6 +891,12 @@ auth_blueprint.add_url_rule(
 auth_blueprint.add_url_rule(
     '/api/v1/field-force/auth/register-dashboard-user',
     view_func=dashboard_user_registration_view,
+    methods=['POST']
+)
+
+auth_blueprint.add_url_rule(
+    '/api/v1/field-force/auth/register-admin-user',
+    view_func=admin_user_registration_view,
     methods=['POST']
 )
 

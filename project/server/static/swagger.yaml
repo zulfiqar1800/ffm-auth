@@ -77,9 +77,39 @@ paths:
                 username:
                   type: string
                   format: string
-                member_type:
-                  type: integer
-                  format: int64
+      responses: 
+        '201':
+          description: User Successfully Registered
+        '400':
+          description: User registration failed
+        '404':
+          description: Company not found
+
+  /api/v1/field-force/auth/register-admin-user:
+    post:
+      summary: Admin User Registration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: string
+                firstname:
+                  type: string
+                  format: string
+                lastname:
+                  type: string
+                  format: string
+                username:
+                  type: string
+                  format: string
       responses: 
         '201':
           description: User Successfully Registered
