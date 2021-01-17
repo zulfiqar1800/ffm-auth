@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://localhost:8000
+  - url: /
 paths:
   /api/v1/field-force/auth/register-user:
     post:

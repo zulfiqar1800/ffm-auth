@@ -3,7 +3,7 @@ version: '3.5'
 services:
   auth:
     container_name: ffm_auth
-    image: shahedmehbub/ffm-auth-transformation:0.0.1
+    image: shahedmehbub/ffm-auth-transformation:0.0.2
     ports:
       - "5001:8000"
     networks:

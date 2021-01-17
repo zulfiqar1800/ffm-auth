@@ -2,6 +2,7 @@ from flask import Blueprint, request, make_response, jsonify
 from flask.views import MethodView
 import validators
 import phonenumbers
+from flask import current_app
 
 from project.server import bcrypt, db
 from project.server.models import User, BlacklistToken, Module, UserModule, Companies, DashboardUser, CompanyPanel, CompanyUsers
@@ -394,7 +395,7 @@ class UserLogin(MethodView):
                     responseObject = {
                         'status': 'success',
                         'message': 'Successfully logged in.',
-                        'auth_token': auth_token.decode(),
+                        'auth_token': auth_token,
                     }
                     return make_response(jsonify(responseObject)), 200
             else:
@@ -443,11 +444,13 @@ class DashboardUserLogin(MethodView):
                 user.password, post_data.get('password')
             ):
                 auth_token = user.encode_auth_token(user.id)
+                current_app.logger.info(auth_token)
+                current_app.logger.info(type(auth_token))
                 if auth_token:
                     responseObject = {
                         'status': 'success',
                         'message': 'Successfully logged in.',
-                        'auth_token': auth_token.decode(),
+                        'auth_token': auth_token,
                     }
                     return make_response(jsonify(responseObject)), 200
             else:
@@ -582,7 +585,7 @@ class RefreshToken(MethodView):
                     responseObject = {
                         'status': 'success',
                         'message': 'Successfully refreshed token.',
-                        'auth_token': auth_token.decode(),
+                        'auth_token': auth_token,
                     }
                     return make_response(jsonify(responseObject)), 200
             responseObject = {
