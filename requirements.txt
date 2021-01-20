@@ -13,6 +13,6 @@ flask-swagger-ui
 Flask-Testing
 phonenumbers
 psycopg2-binary
-PyJWT
+PyJWT==1.7.1
 requests
 validators

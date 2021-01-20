@@ -395,7 +395,7 @@ class UserLogin(MethodView):
                     responseObject = {
                         'status': 'success',
                         'message': 'Successfully logged in.',
-                        'auth_token': auth_token,
+                        'auth_token': auth_token.decode(),
                     }
                     return make_response(jsonify(responseObject)), 200
             else:
@@ -450,7 +450,7 @@ class DashboardUserLogin(MethodView):
                     responseObject = {
                         'status': 'success',
                         'message': 'Successfully logged in.',
-                        'auth_token': auth_token,
+                        'auth_token': auth_token.decode(),
                     }
                     return make_response(jsonify(responseObject)), 200
             else:
@@ -700,10 +700,14 @@ class GetCompanyList(MethodView):
         if auth_token:
             try:
                 resp = DashboardUser.decode_auth_token(auth_token)
+                current_app.logger.info(resp)
+                current_app.logger.info('==============info================')
                 if not isinstance(resp, str):
                     user = DashboardUser.query.filter_by(id=resp).first()
+                    current_app.logger.info('=========here===========')
                     responseObject = []
                     if user:
+                        current_app.logger.info('============there==========')
                         companies = Companies.query.all()
                         for company in companies:
                             responseObject.append({
@@ -720,7 +724,7 @@ class GetCompanyList(MethodView):
                     return make_response(jsonify(responseObject)), 400    
                 responseObject = {
                     'status': 'fail',
-                    'message': "You do not have sufficient permission."
+                    'message': "You do not have sufficient permissions."
                 }
                 return make_response(jsonify(responseObject)), 400
             except Exception as e:
