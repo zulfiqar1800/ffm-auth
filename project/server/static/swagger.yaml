@@ -6,10 +6,18 @@ info:
     name: MIT
 servers:
   - url: /
+tags:
+- name: FFM Operation Team
+- name: Company Admin
+- name: FFM Web Dashboard
+- name: FFM Mobile App User
+
 paths:
   /api/v1/field-force/auth/register-user:
     post:
-      summary: Company User Registration.
+      tags:
+      - FFM Mobile App User
+      summary: Login through the registered credential
       requestBody:
         required: true
         content:
@@ -51,7 +59,9 @@ paths:
 
   /api/v1/field-force/auth/register-dashboard-user:
     post:
-      summary: Dashboard User Registration.
+      tags:
+      - Company Admin
+      summary: Create a new company admin under a company
       requestBody:
         required: true
         content:
@@ -87,7 +97,9 @@ paths:
 
   /api/v1/field-force/auth/register-admin-user:
     post:
-      summary: Admin User Registration.
+      tags:
+      - FFM Operation Team
+      summary: Create FFM platform administrative user
       requestBody:
         required: true
         content:
@@ -120,7 +132,9 @@ paths:
 
   /api/v1/field-force/auth/register-company:
     post:
-      summary: Company Registration.
+      tags:
+      - FFM Operation Team
+      summary: Create a new company
       requestBody:
         required: true
         content:
@@ -147,7 +161,9 @@ paths:
 
   /api/v1/field-force/auth/user-login:
     post:
-      summary: Company User Login.
+      tags:
+      - FFM Mobile App User
+      summary: Login through the registered credential
       requestBody:
         required: true
         content:
@@ -180,7 +196,9 @@ paths:
 
   /api/v1/field-force/auth/dashboard-user-login:
     post:
-      summary: Dashboard User Login.
+      tags:
+      - FFM Web Dashboard
+      summary: Admin login through the registered credential
       requestBody:
         required: true
         content:
@@ -204,7 +222,9 @@ paths:
 
   /api/v1/field-force/auth/authenticate-user:
     get:
-      summary: Authenticate Company User by their JWT.
+      tags:
+      - FFM Mobile App User
+      summary: Authenticate by the JWT token
       responses: 
         '200':
           description: Success
@@ -215,7 +235,9 @@ paths:
 
   /api/v1/field-force/auth/authenticate-dashboard-user:
     get:
-      summary: Authenticate Dashboard User by their JWT.
+      tags:
+      - FFM Web Dashboard
+      summary: Admin authentication by the JWT token
       responses: 
         '200':
           description: Success
@@ -226,6 +248,8 @@ paths:
 
   /api/v1/field-force/auth/refresh-token:
     get:
+      tags:
+      - FFM Web Dashboard
       summary: Get a new JWT by exchanging older one.
       responses: 
         '200':
@@ -237,7 +261,9 @@ paths:
 
   /api/v1/field-force/auth/logout-user:
     get:
-      summary: Log out company user.
+      tags:
+      - FFM Mobile App User
+      summary: Log out from the mobile app as an app user
       responses: 
         '200':
           description: Successfully logged out
@@ -248,7 +274,9 @@ paths:
 
   /api/v1/field-force/auth/logout-dashboard-user:
     get:
-      summary: Log out dashboard user.
+      tags:
+      - FFM Web Dashboard
+      summary: Log out from the dashboard as an FFM platform admin or company admin
       responses: 
         '200':
           description: Successfully logged out
@@ -259,6 +287,8 @@ paths:
 
   /api/v1/field-force/auth/get-company-list:
     get:
+      tags:
+      - FFM Operation Team
       summary: Gets the list of the companies currently registered.
       responses: 
         '200':
@@ -272,7 +302,9 @@ paths:
 
   /api/v1/field-force/auth/get-company-users/{company_id}:
     get:
-      summary: Gets the list of the company users currently registered.
+      tags:
+      - Company Admin
+      summary: List of FFM mobile app users for a specific company
       parameters:
         - name: company_id
           in: path
@@ -293,6 +325,8 @@ paths:
 
   /api/v1/field-force/auth/get-company-contacts:
     get:
+      tags:
+      - FFM Mobile App User
       summary: Gets the list of the contacts for a company.
       responses: 
         '200':
