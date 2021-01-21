@@ -288,7 +288,7 @@ paths:
   /api/v1/field-force/auth/get-company-list:
     get:
       tags:
-      - Operation Team
+      - FFM Operation Team
       summary: Display companies currently registered
       responses: 
         '200':
