@@ -16,7 +16,7 @@ paths:
   /api/v1/field-force/auth/register-user:
     post:
       tags:
-      - FFM Mobile App User
+      - Mobile App User
       summary: Login through the valid credential
       requestBody:
         required: true
