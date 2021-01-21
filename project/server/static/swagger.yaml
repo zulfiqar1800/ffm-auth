@@ -8,9 +8,9 @@ servers:
   - url: /
 tags:
 - name: FFM Operation Team
-- name: Company Admin
-- name: FFM Web Dashboard
-- name: FFM Mobile App User
+- name: Company Manager
+- name: Web Dashboard
+- name: Mobile App User
 
 paths:
   /api/v1/field-force/auth/register-user:
@@ -60,8 +60,8 @@ paths:
   /api/v1/field-force/auth/register-dashboard-user:
     post:
       tags:
-      - Company Admin
-      summary: Create a new company admin under a company
+      - Company Manager
+      summary: Create a new company Manager under a company (Under ABC Delivery Company)
       requestBody:
         required: true
         content:
@@ -134,7 +134,7 @@ paths:
     post:
       tags:
       - FFM Operation Team
-      summary: Create a new company
+      summary: Create a new company (ABC Delivery Company)
       requestBody:
         required: true
         content:
@@ -162,8 +162,8 @@ paths:
   /api/v1/field-force/auth/user-login:
     post:
       tags:
-      - FFM Mobile App User
-      summary: Login through the registered credential
+      - Mobile App User
+      summary: Login through a valid credential
       requestBody:
         required: true
         content:
@@ -197,8 +197,8 @@ paths:
   /api/v1/field-force/auth/dashboard-user-login:
     post:
       tags:
-      - FFM Web Dashboard
-      summary: Admin login through the registered credential
+      - Web Dashboard
+      summary: Managers login through the valid credential
       requestBody:
         required: true
         content:
@@ -223,7 +223,7 @@ paths:
   /api/v1/field-force/auth/authenticate-user:
     get:
       tags:
-      - FFM Mobile App User
+      - Mobile App User
       summary: Authenticate by the JWT token
       responses: 
         '200':
@@ -236,8 +236,8 @@ paths:
   /api/v1/field-force/auth/authenticate-dashboard-user:
     get:
       tags:
-      - FFM Web Dashboard
-      summary: Admin authentication by the JWT token
+      - Web Dashboard
+      summary: Managers authenticate through the JWT token
       responses: 
         '200':
           description: Success
@@ -249,7 +249,7 @@ paths:
   /api/v1/field-force/auth/refresh-token:
     get:
       tags:
-      - FFM Web Dashboard
+      - Web Dashboard
       summary: Get a new JWT by exchanging older one.
       responses: 
         '200':
@@ -262,7 +262,7 @@ paths:
   /api/v1/field-force/auth/logout-user:
     get:
       tags:
-      - FFM Mobile App User
+      - Mobile App User
       summary: Log out from the mobile app as an app user
       responses: 
         '200':
@@ -275,8 +275,8 @@ paths:
   /api/v1/field-force/auth/logout-dashboard-user:
     get:
       tags:
-      - FFM Web Dashboard
-      summary: Log out from the dashboard as an FFM platform admin or company admin
+      - Web Dashboard
+      summary: Log out from the dashboard as an FFM OT users or company Manager
       responses: 
         '200':
           description: Successfully logged out
@@ -288,8 +288,8 @@ paths:
   /api/v1/field-force/auth/get-company-list:
     get:
       tags:
-      - FFM Operation Team
-      summary: Gets the list of the companies currently registered.
+      - Operation Team
+      summary: Display companies currently registered
       responses: 
         '200':
           description: Success
@@ -303,8 +303,8 @@ paths:
   /api/v1/field-force/auth/get-company-users/{company_id}:
     get:
       tags:
-      - Company Admin
-      summary: List of FFM mobile app users for a specific company
+      - Company Manager
+      summary: List of mobile app users for a specific company
       parameters:
         - name: company_id
           in: path
@@ -326,8 +326,8 @@ paths:
   /api/v1/field-force/auth/get-company-contacts:
     get:
       tags:
-      - FFM Mobile App User
-      summary: Gets the list of the contacts for a company.
+      - Mobile App User
+      summary: Display representative list under a company
       responses: 
         '200':
           description: Success
