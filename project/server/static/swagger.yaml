@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Task Service API for FFM
+  title: Auth Service API for FFM
   license:
     name: MIT
 servers:
