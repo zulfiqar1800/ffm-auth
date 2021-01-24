@@ -2,9 +2,9 @@ openapi: "3.0.0"
 info:
   version: 1.0.0
   title: Auth Service API for FFM
-  description: "**This is a digital platform, owned by The [Tech Serve4 U, LLC](http://techserve4u.com)**\n\n\
-  \ **Disclaimer:** You are not allowed to distribute, share, or sell this platform, services, and any contents to anyone for selling or public usages.\n\n\n \
-  \ **Contact for more details:** info@techserve4u.com"
+  description: "**This is a digital platform, owned by The [Tech Serve4 U, LLC](http://techserve4u.com)**<br/><br/>
+  **Disclaimer:** You are not allowed to distribute, share, or sell this platform, services, and any contents to anyone for selling or public usages.<br/>
+  **Contact for more details:** <info@techserve4u.com> Phone: +1 (586) 834-8526"
   license:
     name: MIT
 servers:
