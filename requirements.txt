@@ -11,6 +11,7 @@ Flask-Seeder
 Flask-SQLAlchemy
 flask-swagger-ui
 Flask-Testing
+gunicorn
 phonenumbers
 psycopg2-binary
 PyJWT==1.7.1

@@ -18,7 +18,7 @@ paths:
     post:
       tags:
       - Mobile App User
-      summary: Login through the valid credential
+      summary: Register a new Mobile App User
       requestBody:
         required: true
         content:
@@ -251,7 +251,7 @@ paths:
     get:
       tags:
       - Web Dashboard
-      summary: Get a new JWT by exchanging older one.
+      summary: Get a new JWT by exchanging older one for App User.
       responses: 
         '200':
           description: Successfully refreshed token
