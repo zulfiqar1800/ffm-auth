@@ -2,8 +2,8 @@
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-postgres_local_base = 'postgresql://postgres:123TS4UTransformation@postgres:5432/'
-database_name = 'field_force_db'
+postgres_local_base = 'postgresql://ffmuser:ffm-secret-password@postgres.postgresql.svc.cluster.local:5432/'
+database_name = 'ffm'
 SECRET_TEXT = os.getenv('SECRET_TEXT', 'the_super_secret_text')
 
 
