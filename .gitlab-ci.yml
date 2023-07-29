@@ -1,0 +1,16 @@
+stages:
+  - docker-build
+
+builder:
+  stage: docker-build
+  image:
+    name: bentolor/docker-dind-awscli
+    entrypoint: [""]
+  services:
+    - docker:dind
+  script:
+    - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 493270667162.dkr.ecr.ap-southeast-1.amazonaws.com
+    - docker build -t feb-23-ffm-auth .
+    - docker tag feb-23-ffm-auth:latest 493270667162.dkr.ecr.ap-southeast-1.amazonaws.com/feb-23-ffm-auth:latest
+    - docker push 493270667162.dkr.ecr.ap-southeast-1.amazonaws.com/feb-23-ffm-auth:latest
+  
