@@ -6,10 +6,8 @@ pipeline {
             steps {
                 sh'''
                     echo "Building docker image..."
-                    echo $BUILD_NUMBER
-                    echo $BUILD_TAG
                     docker build -t auth-service:v1 .
-                    docker tag auth-service:v1 shahedmehbub/jenkins-auth-service:v1
+                    docker tag auth-service:v1 shahedmehbub/jenkins-auth-service:v$BUILD_NUMBER
                 '''
             }
         }
@@ -18,7 +16,7 @@ pipeline {
             steps {
                 sh'''
                     echo "Pushing docker image to dockerhub..."
-                    docker push shahedmehbub/jenkins-auth-service:v1
+                    docker push shahedmehbub/jenkins-auth-service:v$BUILD_NUMBER
                 '''
             }
         }
