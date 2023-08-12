@@ -856,7 +856,7 @@ class GetCompanyContacts(MethodView):
 class Health(MethodView):
     def get(self):
         responseObject = {
-            'status': 'success'
+            'status': 'Auth success'
         }
         return make_response(jsonify(responseObject)), 200
 
