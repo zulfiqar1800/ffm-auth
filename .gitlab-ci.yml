@@ -11,6 +11,11 @@ builder:
     - docker tag auth-service:v1 rasheed1800/jenkins-auth-service:v$BUILD_NUMBER
     - echo "$DOCKERHUB_PASSWORD" | docker login -u rasheed1800 --password-stdin
     - docker push  rasheed1800/jenkins-auth-service:v$BUILD_NUMBER 
+
+
+
+
+    
   
 
  
