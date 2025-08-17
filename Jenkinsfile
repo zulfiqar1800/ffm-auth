@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh'''
                     echo "Deploying into swarm..."
-                    ssh ubuntu@172.31.92.2 docker service update --image rasheed1800/jenkins-auth-service:v$BUILD_NUMBER ffm_auth
+                    ssh ubuntu@172.31.92.2 docker service update --image rasheed1800/jenkins-auth-service:v$BUILD_NUMBER
                 '''
             }
         }
