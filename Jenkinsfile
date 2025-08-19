@@ -11,7 +11,7 @@ pipeline {
      stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://gitlab.com/zalaqa0911/ffm-authentication-service.git'
+                git branch: 'main', url: 'https://github.com/zulfiqar1800/ffm-auth.git'
             }
 
       }
