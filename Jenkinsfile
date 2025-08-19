@@ -1,7 +1,37 @@
 pipeline {
     agent any
+    
+    stages {environment {
+        // SonarQube credentials and project key
+        SONAR_HOST_URL = 'http://107.22.52.66:9000'
+        SONAR_PROJECT_KEY = 'sonar token'
+        // Docker Hub credentials (if pushing to Docker Hub)
+        DOCKER_HUB_CREDENTIALS_ID = 'your-dockerhub-credential-id'
+    }
+     stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://gitlab.com/zalaqa0911/ffm-authentication-service.git'
+            }
 
-    stages {
+      }
+
+      stage('OWASP Dependency Check') {
+            steps {
+                // Assuming OWASP Dependency Check is configured in Jenkins
+                dependencyCheck odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'sonar') { // Credential ID for SonarQube token
+                    sh "mvn clean install sonar:sonar -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${SONAR_HOST_URL}"
+                }
+            }
+        }
+
+
+
         stage('Build') {
             steps {
                 sh'''
@@ -11,6 +41,13 @@ pipeline {
                 '''
             }
         }
+        stage('Trivy Scan') {
+            steps {
+                sh "trivy image --severity HIGH,CRITICAL your-image-name:${env.BUILD_NUMBER}"
+            }
+        }
+
+
 
         stage('Push') {
             steps {
