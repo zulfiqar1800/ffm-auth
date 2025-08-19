@@ -6,7 +6,7 @@ pipeline {
         SONAR_HOST_URL = 'http://107.22.52.66:9000'
         SONAR_PROJECT_KEY = 'sonar token'
         // Docker Hub credentials (if pushing to Docker Hub)
-        DOCKER_HUB_CREDENTIALS_ID = 'your-dockerhub-credential-id'
+        DOCKER_HUB_CREDENTIALS_ID = 'rasheed1800'
     }
      stages {
         stage('Checkout') {
